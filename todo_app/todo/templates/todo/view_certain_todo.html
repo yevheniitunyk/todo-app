@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'todo:update_todo' todo.id %}">Update current todo</a>
+<form action="{% url 'todo:delete_todo' todo.id %}">
+    <button>Delete current todo</button>
+</form>
+<h1>{{todo.title}}</h1>
+<p>{{todo.description}}</p>
+<p>{{todo.created_at}}</p>
+<p>Created: {{todo.user.username}}</p>
+{% endblock content %}

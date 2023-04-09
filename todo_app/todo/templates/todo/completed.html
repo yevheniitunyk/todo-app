@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'todo:view_my_todos' %}">To all todos</a>
+{% for item in todos %}
+<a href="{{ item.get_absolute_url }}"><h1>{{item.title}}</h1></a>
+<p>{{item.description|truncatewords:15}}</p>
+<p>{{item.created_at}}</p>
+{% if item.important %}
+<p>Important!</p>
+{%endif%}
+<p>{{item.done}}</p>
+<p>Created: {{item.user.username}}</p>
+<hr>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block navbar %}
+{% include 'inc/_nav.html' %}
+{% endblock navbar %}
+{% block content %}
+<!-- <a href="{% url 'todo:add_todo' %}">Add todo</a>
+{% for item in todos %}
+<a href="{{ item.get_absolute_url }}"><h1>{{item.title}}</h1></a>
+<p>{{item.description|linebreaks|truncatewords:15}}</p>
+<p>{{item.created_at}}</p>
+{% if item.important %}
+<p>Important!</p>
+{%endif%}
+<p>{{item.done}}</p>
+<p>Created: {{item.user.username}}</p>
+<hr>
+{% endfor %} -->
+<div class="list-cont">
+<div class="list-group">
+    <a href="{% url 'todo:completed' %}">My completed todos</a>  <br>
+    <a href="{% url 'todo:add_todo' %}">Add new todo</a>   <br>
+    {% for cat in category %}
+      <a href="{{cat.get_absolute_url}}">{{cat.title}}</a>
+    {% endfor %}
+    {% for item in todos %}
+    {% if not item.important %}
+    <a href="{{item.category.get_absolute_url}}"> <p>Category: {{item.category}}</p></a>
+    <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action">
+    <h5>{{item.title}}</h5>
+    <p class="marg-parag">{{item.description|linebreaks|truncatewords:15}}</p>
+    <p class="creation-date">{{item.created_at|date:'jS F Y'}}</p>
+    </a>
+    {% else %}
+    <a href="{{item.category.get_absolute_url}}"> <p>Category: {{item.category}}</p></a>
+    <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action list-group-item-warning">
+    <h5>{{item.title}}</h5>
+    <p class="marg-parag">{{item.description|linebreaks|truncatewords:15}}</p>
+    <p class="creation-date">{{item.created_at|date:'jS F Y'}}</p>
+  </a>
+  {% endif %}
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}
+{% block footer %}
+{% include 'inc/_footer.html' %}
+{% endblock footer %}
